@@ -1,0 +1,68 @@
+# 2025-01-24
+## 문제: M개 이상의 수업을 들은 학생의 수 구하기
+
+### 문제 설명
+노교수는 여러 수업을 진행하였고, 각 수업에 대한 수강생 학번 정보가 주어진다. 이때, $M$개 이상의 수업을 들은 학생의 수를 구하는 문제이다.
+
+- **입력 조건**
+  - 수업 수 $N$과 조건 $M$이 주어진다.
+  - 각 수업에는 수강생 수 $K_i$와 $K_i$개의 학번이 주어진다.
+  - 학번은 8자리 숫자로 이루어져 있으며 항상 1로 시작한다.
+
+- **출력 조건**
+  - $M$개 이상의 수업을 들은 학생의 수를 출력한다.
+
+---
+
+### 문제 접근 방법
+1. **입력 처리**  
+   - $N$, $M$ 값을 읽어오고, 각 수업의 수강생 학번 데이터를 처리한다.
+   - 학번 데이터를 `defaultdict`를 활용하여 학번별 수업 참석 횟수를 저장한다.
+
+2. **조건 만족 학생 계산**  
+   - 학번별로 수업 참석 횟수가 $M$ 이상인 경우를 필터링하여 학생 수를 계산한다.
+
+3. **출력 결과 반환**
+
+---
+
+### 코드 구현
+```java
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // 첫 번째 줄 입력
+        int N = scanner.nextInt(); // 수업 수
+        int M = scanner.nextInt(); // 최소 조건 수업 수
+        scanner.nextLine();
+
+        // 학번별 수업 참석 횟수 저장
+        Map<String, Integer> studentCount = new HashMap<>();
+
+        // 수업 데이터 처리
+        for (int i = 0; i < N; i++) {
+            int K = scanner.nextInt(); // 수강생 수
+            scanner.nextLine();
+            String[] students = scanner.nextLine().split(" ");
+
+            // 학번별 참석 횟수 증가
+            for (String student : students) {
+                studentCount.put(student, studentCount.getOrDefault(student, 0) + 1);
+            }
+        }
+
+        // 조건을 만족하는 학생 수 계산
+        int result = 0;
+        for (int count : studentCount.values()) {
+            if (count >= M) {
+                result++;
+            }
+        }
+
+        // 결과 출력
+        System.out.println(result);
+    }
+}
