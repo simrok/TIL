@@ -6,7 +6,7 @@ public class Main {
         String input = scanner.nextLine();
         int inputInt = Integer.parseInt(input);
         if (inputInt >= 1 && inputInt <= 1000){
-            System.out.println("Your score is " + inputInt + " point");
+            System.out.println("Your score is " + inputInt + " point.");
         }   
     }
 }   
